@@ -13,26 +13,31 @@
    (sab/html
     [:div.about.panel.content-page.blue-shade
      [:h3 "About"]
-     [:p "This website is created and run by an avid Netrunner player from Belgium. The goal is to provide a great way to create and test Netrunner decks online."]
+     [:p "jinteki.net was originally created and run by an avid Netrunner player from Belgium. The goal was to provide a great way to create and test Netrunner decks online."]
+     [:p "This clone is part of Eternal ANR, a community for playing and talking about playing Android: Netrunner without rotation or power-level errata."]
 
-     [:h3 "Contact"]
+     [:h3 "Original jinteki.net Contact Information"]
      [:p "Twitter: " [:a {:href "http://twitter.com/mtgred" :target "_blank"} "@mtgred"]]
      [:p "Email: " [:a {:href "mailto:mtgred@gmail.com"} "mtgred@gmail.com"]]
+
+     [:h3 "Eternal ANR Contact Information"]
+     [:p "Twitter: " [:a {:href "http://twitter.com/westonodom" :target "_blank"} "@westonodom"]]
+     [:p "Email: " [:a {:href "mailto:weston.odom@gmail.com"} "weston.odom@gmail.com"]]
 
      [:h3 "Development"]
 
      [:p "The code is open source and available on "
-      [:a {:href "https://github.com/mtgred/netrunner" :target "_blank"} "Github"] "."]
+      [:a {:href "https://github.com/wtodom/netrunner" :target "_blank"} "Github"] "."]
 
      [:p "Bug reports and feature suggestions can be submitted "
-      [:a {:href "https://github.com/mtgred/netrunner/issues" :target "_blank"} "here"] "."]
+      [:a {:href "https://github.com/wtodom/netrunner/issues" :target "_blank"} "here"] "."]
 
      [:p "Card automation "
       [:a {:href "https://docs.google.com/spreadsheets/d/1ICv19cNjSaW9C-DoEEGH3iFt09PBTob4CAutGex0gnE/pubhtml"
            :target "_blank"} "status"] "."]
 
      [:h3 "Contributors"]
-     [:p "A big props to Neal Terrell (nealpro), Joel Koepp (JoelCFC25), Dominic Kexel (queueseven), Lukasz Dobrogowski (zaroth), Filip Gokstorp (Saintis) and Felix Laurie von Massenbach (erbridge) who actively contribute to the success of the project with regular code submissions, the management of the issue tracker and answers to questions in the chat. It would not be the same without your help."]
+     [:p "Major thanks to Minh Tran for making jinteki.net originally, and a big props to Neal Terrell (nealpro), Joel Koepp (JoelCFC25), Dominic Kexel (queueseven), Lukasz Dobrogowski (zaroth), Filip Gokstorp (Saintis) and Felix Laurie von Massenbach (erbridge) who actively contribute to the success of the project with regular code submissions, the management of the issue tracker and answers to questions in the chat. It would not be the same without your help. Also, special thanks to Jim van Fleet (@bigfleet) for helping us setup the Eternal ANR server."]
 
      [:h3 "Donations"]
      [:p "Donations are appreciated and help finance fast servers. You can support the project financially with PayPal or Bitcoin. Alternate art cards will be enabled on your account as a token of gratitude. Please specify your username with your donation."]
