@@ -36,9 +36,6 @@
    (sab/html
     [:ul
      [:li
-      [:a {:href "" :data-target "#register-form" :data-toggle "modal"
-           :on-click (fn [] .focus (js/$ "input[name='email']"))} "Sign up"]]
-     [:li
       [:a {:href "" :data-target "#login-form" :data-toggle "modal"} "Login"]]])))
 
 (defn auth-menu [{:keys [user]} owner]
@@ -80,47 +77,6 @@
   (let [pattern #"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"]
     (and (string? email) (re-matches pattern (.toLowerCase email)))))
 
-(defn register [event owner]
-  (.preventDefault event)
-  (let [username (.-value (om/get-node owner "username"))
-        email (.-value (om/get-node owner "email"))
-        password (.-value (om/get-node owner "password"))]
-    (cond
-      (empty? email) (om/set-state! owner :flash-message "Email can't be empty")
-      (empty? username) (om/set-state! owner :flash-message "Username can't be empty")
-      (not (valid-email? email)) (om/set-state! owner :flash-message "Please enter a valid email address")
-      (< 20 (count username)) (om/set-state! owner :flash-message "Username must be 20 characters or shorter")
-      (empty? password) (om/set-state! owner :flash-message "Password can't be empty")
-      :else (handle-post event owner "/register" "register-form"))))
-
-(defn register-form [cursor owner]
-  (reify
-    om/IInitState
-    (init-state [this] {:flash-message ""})
-
-    om/IRenderState
-    (render-state [this state]
-      (sab/html
-       [:div.modal.fade#register-form {:ref "register-form"}
-        [:div.modal-dialog
-         [:h3 "Create an account"]
-         [:p.flash-message (:flash-message state)]
-         [:form {:on-submit #(register % owner)}
-          [:p [:input {:type "text" :placeholder "Email" :name "email" :ref "email"
-                       :on-blur #(when-not (valid-email? (.. % -target -value))
-                                   (om/set-state! owner :flash-message "Please enter a valid email address"))}]]
-          [:p [:input {:type "text" :placeholder "Username" :name "username" :ref "username"
-                       :on-blur #(check-username % owner) :maxLength "16"}]]
-          [:p [:input {:type "password" :placeholder "Password" :name "password" :ref "password"}]]
-          [:p [:button "Sign up"]
-              [:button {:data-dismiss "modal"} "Cancel"]]]
-         [:p "Already have an account? "
-          [:span.fake-link {:on-click #(.modal (js/$ "#login-form") "show")
-                            :data-dismiss "modal"} "Log in"]]
-         [:p "Need to reset your password? "
-          [:span.fake-link {:on-click #(.modal (js/$ "#forgot-form") "show")
-                            :data-dismiss "modal"} "Reset"]]]]))))
-
 (defn login-form [cursor owner]
   (reify
     om/IInitState
@@ -138,9 +94,6 @@
           [:p [:input {:type "password" :placeholder "Password" :name "password"}]]
           [:p [:button "Log in"]
            [:button {:data-dismiss "modal"} "Cancel"]]
-          [:p "No account? "
-           [:span.fake-link {:on-click #(.modal (js/$ "#register-form") "show")
-                             :data-dismiss "modal"} "Sign up!"]]
           [:p "Forgot your password? "
            [:span.fake-link {:on-click #(.modal (js/$ "#forgot-form") "show")
                              :data-dismiss "modal"} "Reset"]]]]]))))
@@ -161,17 +114,13 @@
           [:p [:input {:type "text" :placeholder "Email" :name "email"
                        :on-blur #(check-email % owner)}]]
           [:p [:button "Submit"]
-              [:button {:data-dismiss "modal"} "Cancel"]]
-          [:p "No account? "
-            [:span.fake-link {:on-click #(.modal (js/$ "#register-form") "show")
-                              :data-dismiss "modal"} "Sign up!"]]]]]))))
+              [:button {:data-dismiss "modal"} "Cancel"]]]]]))))
 
 (defn auth-forms [cursor owner]
   (om/component
    (sab/html
     (when-not (:user @app-state)
       [:div
-       (om/build register-form cursor)
        (om/build login-form cursor)
        (om/build forgot-form cursor)]))))
 
