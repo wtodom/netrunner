@@ -381,42 +381,7 @@ app.get '/logout', (req, res) ->
   res.redirect('/')
 
 app.post '/register', (req, res, next) ->
-  if req.body.username.length > 20
-    res.status(423).send({message: 'Usernames are limited to 20 characters'})
-  else
-    db.collection('users').findOne username: new RegExp("^#{req.body.username}$", "i"), (err, user) ->
-      if user
-        res.status(422).send({message: 'Username taken'})
-      else
-        email = req.body.email.trim().toLowerCase()
-        db.collection('users').findOne email: new RegExp("^#{email}$", "i"), (err, user) ->
-          if user
-            res.status(424).send({message: 'Email already used'})
-          else
-            req.body.emailhash = crypto.createHash('md5').update(email).digest('hex')
-            req.body.registrationDate = new Date()
-            req.body.lastConnection = new Date()
-            hashPassword req.body.password, (err, hash) ->
-              req.body.password = hash
-              db.collection('users').insert req.body, (err) ->
-                if err
-                  res.send("error: #{err}")
-                else
-                  req.login req.body, (err) ->
-                    if err
-                      next(err)
-                    else
-                      db.collection('decks').find({username: '__demo__'}).toArray (err, demoDecks) ->
-                        throw err if err
-                        for deck in demoDecks
-                          delete deck._id
-                          deck.username = req.body.username
-                        if demoDecks.length > 0
-                          db.collection('decks').insert demoDecks, (err, newDecks) ->
-                            throw err if err
-                            res.status(200).json({user: req.user, decks: newDecks})
-                        else
-                          res.status(200).json({user: req.user, decks: []})
+  res.status(403).send({message: 'Registration is not allowed.'})
 
 app.post '/forgot', (req, res) ->
   async.waterfall [
