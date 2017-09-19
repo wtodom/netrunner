@@ -175,7 +175,7 @@ lobby = io.of('/lobby').on 'connection', (socket) ->
           gameid: gameid
           title: msg.title.substring(0,30)
           allowspectator: msg.allowspectator
-          spectatorhands: msg.spectatorhands
+          spectatorhands: true
           password: if msg.password then crypto.createHash('md5').update(msg.password).digest('hex') else ""
           room: msg.room
           players: [{user: socket.request.user, id: socket.id, side: msg.side, options: msg.options}]
