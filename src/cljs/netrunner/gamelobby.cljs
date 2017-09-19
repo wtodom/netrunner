@@ -91,7 +91,7 @@
                    :title (om/get-state owner :title)
                    :password (om/get-state owner :password)
                    :allowspectator (om/get-state owner :allowspectator)
-                   :spectatorhands (om/get-state owner :spectatorhands)
+                   :spectatorhands (true)
                    :side (om/get-state owner :side)
                    :room (om/get-state owner :current-room)
                    :options (:options @app-state)})))))))
@@ -271,7 +271,7 @@
        [:div
         [:div.lobby-bg]
         [:div.container
-         [:div.lobby.panel.blue-shade 
+         [:div.lobby.panel.blue-shade
           [:div.games
            [:div.button-bar
             (if gameid
