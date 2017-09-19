@@ -91,7 +91,7 @@
                    :title (om/get-state owner :title)
                    :password (om/get-state owner :password)
                    :allowspectator (om/get-state owner :allowspectator)
-                   :spectatorhands (true)
+                   :spectatorhands (om/get-state owner :spectatorhands)
                    :side (om/get-state owner :side)
                    :room (om/get-state owner :current-room)
                    :options (:options @app-state)})))))))
