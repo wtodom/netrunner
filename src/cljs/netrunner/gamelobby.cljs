@@ -74,7 +74,7 @@
      (om/set-state! owner :protected false)
      (om/set-state! owner :password "")
      (om/set-state! owner :allowspectator true)
-     (om/set-state! owner :spectatorhands false)
+     (om/set-state! owner :spectatorhands true)
      (-> ".game-title" js/$ .select))))
 
 (defn create-game [cursor owner]
